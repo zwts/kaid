@@ -10,6 +10,8 @@ export default class ListItem extends BaseComponent {
   }
 
   render() {
+    const liClassName =
+      `list-item ${this.props.focusable ? 'focusable' : ''}`;
     const iconClassName =
       `list-item-icon ${!this.props.icon ? 'hidden' : ''}`;
     const primaryLineClassName =
@@ -20,7 +22,7 @@ export default class ListItem extends BaseComponent {
       `list-item-controller ${!this.props.controller ? 'hidden' : ''}`;
 
     return (
-      <li className='list-item' tabIndex='0'>
+      <li className={liClassName} tabIndex='1'>
         <div className={iconClassName}>
           <span data-icon={this.props.icon}/>
         </div>
