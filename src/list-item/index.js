@@ -10,8 +10,9 @@ export default class ListItem extends BaseComponent {
   }
 
   render() {
-    const liClassName =
-      `list-item ${this.props.focusable ? 'focusable' : ''}`;
+    const liClassName = `list-item
+      ${this.props.outerClass} 
+      ${this.props.focusable ? 'focusable' : ''}`;
     const iconClassName =
       `list-item-icon ${!this.props.icon ? 'hidden' : ''}`;
     const primaryLineClassName =
