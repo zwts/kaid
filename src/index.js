@@ -4,3 +4,4 @@ export { default as SoftKeyStore } from './softkey-store';
 export { default as SoftKey } from './softkey';
 export { default as ListItem } from './list-item';
 export { default as List } from './list';
+export { default as Service } from './service';
