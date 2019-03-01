@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './static/common.scss';
 
 import OneLineLi from './template/one-line-li';
+import Header from '../src/header';
 
 
 class Site extends React.Component {
@@ -23,7 +24,7 @@ class Site extends React.Component {
       <>
       <span>Header</span>
       <div className="fake-device-container">
-        <span>Hello webpack dev servicer</span>
+        <Header text="header">Header</Header>
       </div>
 
       <span>One Line List</span>
