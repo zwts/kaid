@@ -1,6 +1,6 @@
 import React from 'react';
 import BaseComponent from '../base-component';
-import SimpleNavigationHelper from  '../simple-navigation-helper';
+import SimpleNavigationHelper from '../simple-navigation-helper';
 
 export default class List extends BaseComponent {
   constructor(props) {
@@ -15,8 +15,10 @@ export default class List extends BaseComponent {
 
   render() {
     return (
-    <div ref={(container) => {this.container = container}}
-         className='list-container' tabIndex='1'>
+    <div
+      ref={(container) => { this.container = container; }}
+      className='list-container'
+      tabIndex='1'>
       <ul>{this.props.children}</ul>
     </div>
     );

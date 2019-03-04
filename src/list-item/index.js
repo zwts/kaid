@@ -11,7 +11,7 @@ export default class ListItem extends BaseComponent {
 
   render() {
     const liClassName = `list-item
-      ${this.props.outerClass} 
+      ${this.props.outerClass ? this.props.outerClass : ''}
       ${this.props.focusable ? 'focusable' : ''}`;
     const iconClassName =
       `list-item-icon ${!this.props.icon ? 'hidden' : ''}`;
@@ -23,7 +23,10 @@ export default class ListItem extends BaseComponent {
       `list-item-controller ${!this.props.controller ? 'hidden' : ''}`;
 
     return (
-      <li className={liClassName} tabIndex='1'>
+      <li
+        className={liClassName}
+        tabIndex='1'
+        {...this.props.data}>
         <div className={iconClassName}>
           <span data-icon={this.props.icon}/>
         </div>
