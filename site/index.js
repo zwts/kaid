@@ -5,6 +5,7 @@ import './static/common.scss';
 import OneLineLi from './template/one-line-li';
 import Header from '../src/header';
 import OptionMenu from '../src/option-menu';
+import Dialog from '../src/dialog'
 
 
 class Site extends React.Component {
@@ -40,9 +41,54 @@ class Site extends React.Component {
       <span>Option Menu</span>
       <div className="fake-device-container">
         <OptionMenu
-          ref={(node) => { this.menu = node; }}>
+          ref={(node) => { this.menu = node; }}
+        >
         </OptionMenu>
       </div>
+
+      <span>Alert Dialog</span>
+      <div className="fake-device-container">
+        <Dialog
+          header="Dialog Header"
+          type="alert"
+          content="Some dialog content show here"
+        />
+      </div>
+
+      <span>Input Dialog</span>
+      <div className="fake-device-container">
+        <Dialog
+          header="Input fruit number"
+          type="prompt"
+          content="You need to input the number you want"
+          initialValue="1"
+          inputOptions={
+            {
+              type: 'text',
+              placeholder: 'fruit number you want',
+              defaultValue: 1,
+              'x-inputmode': 'digit',
+              maxLength: 3
+            }
+          }
+        />
+      </div>
+
+      <span>Progress Dialog</span>
+      <div className="fake-device-container">
+        <Dialog
+          header="Download file progress"
+          type="progress"
+          content="Please wait file download"
+          progressOptions={
+            {
+              value: 3,
+              max: 10
+            }
+          }
+        />
+      </div>
+
       </>
     );
   }
