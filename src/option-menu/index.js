@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import BaseComponent from '../base-component';
-import SoftKeyStore from '../softkey-store';
+import SoftKey from '../softkey';
 import SimpleNavigationHelper from '../simple-navigation-helper';
 import './index.scss';
 
@@ -45,11 +45,11 @@ export default class OptionMenu extends BaseComponent {
   }
 
   unregisterSoftKeys() {
-    SoftKeyStore.unregister(this.element);
+    SoftKey.unregister(this.element);
   }
 
   updateSoftKeys() {
-    SoftKeyStore.register({
+    SoftKey.register({
       left: this.state.hasCancel ? 'cancel' : '',
       center: 'select',
       right: ''

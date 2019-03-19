@@ -1,18 +1,16 @@
 import React from 'react';
-import BaseComponent from '../base-component';
-import SoftKeyStore from '../softkey-store';
+import ReactDOM from 'react-dom';
+import SoftKey from '../softkey';
 import './index.scss';
 
-export default class Dialog extends BaseComponent {
-  constructor(props) {
-    super(props);
+const prefixCls = 'kai-dialog';
 
-    this.state = {};
-  }
-
+class Dialog extends React.Component {
   componentDidMount() {
-    this.content = this.element.querySelector('.content');
     this.updateSoftKeys();
+
+    this.lastFocus = document.activeElement;
+    this.focus();
   }
 
   componentDidUpdate() {
@@ -21,51 +19,31 @@ export default class Dialog extends BaseComponent {
     }
   }
 
-  scrollContent(direction) {
-    if (!this.content) {
-      return;
-    }
-    const maxOffset = this.content.scrollHeight - this.content.clientHeight;
-    if (!((this.content.scrollTop === 0 && direction < 0)
-      || (this.content.scrollTop === maxOffset && direction > 0))) {
-      let scorlloffset;
-      const distance = this.content.clientHeight - 41;
-      if (direction > 0) {
-        scorlloffset = this.content.scrollTop + distance;
-      } else if (direction < 0) {
-        scorlloffset = this.content.scrollTop - distance;
-      }
-
-      if (scorlloffset < 0) {
-        scorlloffset = 0;
-      } else if (scorlloffset > maxOffset) {
-        scorlloffset = maxOffset;
-      }
-      this.content.scrollTo(0, scorlloffset);
-    }
+  componentWillUnmount() {
+    SoftKey.unregister(this.element);
   }
 
   updateSoftKeys() {
     switch (this.props.type) {
       case 'alert':
-        SoftKeyStore.register({
+        SoftKey.register({
           left: '',
           center: 'ok',
           right: ''
         }, this.element);
         break;
       case 'progress':
-        SoftKeyStore.register({
+        SoftKey.register({
           left: 'cancel',
           center: '',
           right: ''
         }, this.element);
         break;
       case 'prompt':
-        SoftKeyStore.register({
-          left: this.props.cancel || 'cancel',
-          center: '',
-          right: this.props.ok || 'ok'
+        SoftKey.register({
+          left: 'cancel',
+          center: 'ok',
+          right: ''
         }, this.element);
         break;
       default:
@@ -74,101 +52,128 @@ export default class Dialog extends BaseComponent {
   }
 
   focus() {
-    this.focusIfPossible();
-    this.updateSoftKeys();
-  }
-
-  focusIfPossible() {
-    if (this.isHidden()) {
-      return;
-    }
-    if (this.props.type === 'prompt') {
+    if (this.input) {
       this.input.focus();
     } else {
       this.element.focus();
     }
   }
 
-  hide() {
-    if (this.props.type === 'prompt') {
-      this.input.value = this.props.initialValue || '';
-    }
-    super.hide();
-  }
-
-  onKeyDown(evt) {
-    const key = { evt };
-    switch (key) {
-      case 'ArrowDown':
-        evt.stopPropagation();
-        evt.preventDefault();
-        this.scrollContent(1);
-        break;
-      case 'ArrowUp':
-        evt.stopPropagation();
-        evt.preventDefault();
-        this.scrollContent(-1);
-        break;
+  onKeyDown = (evt) => {
+    const { type, onOK, onCancel } = this.props;
+    switch (evt.key) {
       case 'Enter':
-        evt.stopPropagation();
-        evt.preventDefault();
+        let res = null;
+        if (type === 'prompt') {
+          res = this.input.value;
+        }
+        onOK && onOK(res);
+        this.close();
         break;
       case 'SoftLeft':
-        evt.stopPropagation();
-        evt.preventDefault();
-        break;
-      case 'SoftRight':
-        evt.stopPropagation();
-        evt.preventDefault();
+        onCancel && onCancel();
+        this.close();
         break;
       case 'Backspace':
       case 'EndCall':
+        evt.preventDefault();
+        evt.stopPropagation();
+        this.close();
         break;
       default:
         break;
     }
   }
 
+  focusLast() {
+    if (this.lastFocus && this.lastFocus.offsetParent) {
+      this.lastFocus.focus();
+    }
+
+    this.lastFocus = null;
+  }
+
+  close() {
+    this.props.close();
+    this.focusLast();
+  }
+
   render() {
+    const { header, content, type, inputOptions, progressOptions } = this.props;
     return (
-      <div
-        ref={(node) => { this.element = node; }}
-        className="dialog-container"
-        tabIndex="-1"
-        onKeyDown={(e) => this.onKeyDown(e)}
-      >
-        <div className="dialog">
-          <div className="header h1" data-l10n-id={this.props.header}>
-            {this.props.header}
-          </div>
-          <div className="content p-ul" tabIndex="-1">
-            <div data-l10n-id={this.props.content}>
-              {this.props.content}
-            </div>
+      <>
+        <div
+          ref={node => { this.element = node }}
+          className={`${prefixCls}-wrapper`}
+          tabIndex="-1" onKeyDown={this.onKeyDown}
+        >
+          {header ?
+            <div className={`${prefixCls}-header h1`} data-l10n-id={header}>
+              {header}
+            </div> : null}
+          <div className={`${prefixCls}-container ${type}`}>
+            {content ?
+              <p className={`${prefixCls}-content`} data-l10n-id={content}>
+                {content}
+              </p> : null}
             {
-              this.props.type === 'prompt'
-                ? <input
+              type === 'prompt' ?
+                <input
                   ref={(node) => { this.input = node; }}
-                  className="primary"
-                  {...this.props.inputOptions}
-                />
-                : ''
+                  className={`${prefixCls}-input`}
+                  {...inputOptions}
+                /> : null
             }
             {
-              this.props.type === 'progress'
-                ? <div>
+              type === 'progress' ?
+                <div>
                   <p>
-                    {`${this.props.progressOptions.value} / ${this.props.progressOptions.max}`}
+                    {`${progressOptions.value} / ${progressOptions.max}`}
                   </p>
                   <progress
-                    {...this.props.progressOptions}
+                    {...progressOptions}
                   />
-                </div>
-                : ''
+                </div> : null
             }
           </div>
         </div>
-      </div>
+        <SoftKey />
+      </>
     );
   }
 }
+
+
+function show(config, container) {
+  const div = document.createElement('div');
+  div.className = `${prefixCls}`;
+
+  const parent = container ? container : document.body;
+  parent.appendChild(div);
+
+  function render(props) {
+    ReactDOM.render(<Dialog {...props} />, div);
+  }
+
+  function close() {
+    ReactDOM.unmountComponentAtNode(div);
+    parent.removeChild(div);
+    config.onClose && config.onClose();
+  }
+
+  config.onOpen && config.onOpen();
+  render({...config, close});
+}
+
+['alert', 'progress', 'prompt'].forEach(type => {
+  Dialog[type] = function(props, contianer) {
+    const config = {
+      type,
+      ...props
+    };
+
+    return show(config, contianer);
+  };
+});
+
+export default Dialog

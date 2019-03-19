@@ -1,22 +1,26 @@
 import React from 'react';
-import BaseComponent from '../base-component';
-import SoftKeyStore from '../softkey-store';
 import './index.scss';
 
 const prefixCls = 'kai-softkey';
 
-function Button(props) {
-  const content = props.content
+const Button = (props) => {  // eslint-disable-line
+  const { content } = props;
+  const { icon, text } = content;
+
+  const opts = content
     ? {
-      'data-icon': props.content.icon,
-      'data-l10n-id': props.content.text || props.content
+      'data-icon': icon,
+      'data-l10n-id': text || content
     }
     : null;
 
-  return <button ref={props.btnRef} className={`${prefixCls}-btn`} {...content} />;
-}
+  return <button className={`${prefixCls}-btn`} {...opts} />;
+};
 
-export default class SoftKey extends BaseComponent {
+const DOMKeyMap = new Map();
+const UpdateListeners = new Set();
+
+export default class SoftKey extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,39 +28,91 @@ export default class SoftKey extends BaseComponent {
       center: props.center || '',
       right: props.right || ''
     };
-    this.refCbs = {};
-    this.btns = {};
-    ['left', 'center', 'right'].forEach((btn) => {
-      this.refCbs[btn] = this.getBtnRefs(btn);
-    });
   }
 
   componentDidMount() {
-    SoftKeyStore.on('change', () => {
-      const keys = SoftKeyStore.currentKeys;
-      this.setState(keys);
-    });
+    UpdateListeners.add(this.handleUpdate);
   }
 
-  componentWillUpdate(nextProps, nextState) {
-    for (const key in nextState) {
-      if (!nextState[key]) {
-        this.btns[key].textContent = '';
-      }
+  componentWillUnmount() {
+    UpdateListeners.delete(this.handleUpdate);
+  }
+
+  handleUpdate = (keys) => {
+    this.setState(keys);
+  }
+
+  render() {
+    const { left, center, right } = this.state;
+    return (
+      <form className={`${prefixCls} visible`} data-type="action">
+        <Button pos="left" content={left} />
+        <Button pos="center" content={center} />
+        <Button pos="right" content={right} />
+      </form>
+    );
+  }
+
+  static register(keys, el) {
+    let inst = DOMKeyMap.get(el);
+    if (inst) {
+      inst.update(keys);
+    } else {
+      inst = {
+        start() {
+          el.addEventListener('focus', this.check, true);
+          this.update(keys);
+        },
+
+        stop() {
+          el.removeEventListener('focus', this.check, true);
+        },
+
+        check() {
+          const curr = document.activeElement;
+          if (curr === el || el.contains(curr)) {
+            SoftKey.updateKeys();
+          }
+        },
+
+        update(keys) {
+          this.keys = keys;
+          this.check();
+        }
+      };
+      DOMKeyMap.set(el, inst);
+      inst.start();
     }
   }
 
-  getBtnRefs = btn => (el) => {
-    this.btns[btn] = el;
-  };
+  static unregister(el) {
+    const inst = DOMKeyMap.get(el);
+    if (!inst) {
+      return;
+    }
+    inst.stop();
+    DOMKeyMap.delete(inst);
+    SoftKey.updateKeys();
+  }
 
-  render() {
-    return (
-      <form className={`${prefixCls} visible`} data-type="action">
-        <Button pos="left" btnRef={this.refCbs.left} content={this.state.left} />
-        <Button pos="center" btnRef={this.refCbs.center} content={this.state.center} />
-        <Button pos="right" btnRef={this.refCbs.right} content={this.state.right} />
-      </form>
-    );
+  static updateKeys() {
+    const res = {};
+    let curr = document.activeElement;
+    while (curr !== document.body) {
+      const inst = DOMKeyMap.get(curr);
+      if (inst) {
+        const { keys } = inst;
+        for (const key in keys) {
+          if (!(key in res)) {
+            res[key] = keys[key];
+          }
+        }
+      }
+      curr = curr.parentNode;
+    }
+
+    for (const listener of UpdateListeners) {
+      listener(res);
+    }
   }
 }

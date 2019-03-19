@@ -20,6 +20,35 @@ class Site extends React.Component {
       {id: 'apple', label:'apple', callback :() => {}},
       {id: 'bananer', label:'bananer', callback: () => {}}
     ]});
+
+    Dialog.alert({
+      header: 'Alert Dialog',
+      content: 'Some alert message here'
+    }, document.querySelector('.alertDialogContainer'));
+
+    Dialog.prompt({
+      header: "Input fruit number",
+      content: "You need to input the number you want",
+
+      initialValue: "1",
+      inputOptions: {
+        type: 'text',
+        placeholder: 'fruit number you want',
+        defaultValue: 1,
+        'x-inputmode': 'digit',
+        maxLength: 3
+      }
+    }, document.querySelector('.promptDialogContainer'));
+
+    Dialog.progress({
+      header: "Download file progress",
+      type: "progress",
+      content: "Please wait file download",
+      progressOptions: {
+        value: 3,
+        max: 10
+      }
+    }, document.querySelector('.progressDialogContainer'));
   }
 
   componentDidUpdate() {
@@ -47,46 +76,15 @@ class Site extends React.Component {
       </div>
 
       <span>Alert Dialog</span>
-      <div className="fake-device-container">
-        <Dialog
-          header="Dialog Header"
-          type="alert"
-          content="Some dialog content show here"
-        />
+      <div className="fake-device-container alertDialogContainer">
       </div>
 
       <span>Input Dialog</span>
-      <div className="fake-device-container">
-        <Dialog
-          header="Input fruit number"
-          type="prompt"
-          content="You need to input the number you want"
-          initialValue="1"
-          inputOptions={
-            {
-              type: 'text',
-              placeholder: 'fruit number you want',
-              defaultValue: 1,
-              'x-inputmode': 'digit',
-              maxLength: 3
-            }
-          }
-        />
+      <div className="fake-device-container promptDialogContainer">
       </div>
 
       <span>Progress Dialog</span>
-      <div className="fake-device-container">
-        <Dialog
-          header="Download file progress"
-          type="progress"
-          content="Please wait file download"
-          progressOptions={
-            {
-              value: 3,
-              max: 10
-            }
-          }
-        />
+      <div className="fake-device-container progressDialogContainer">
       </div>
 
       </>

@@ -29,9 +29,9 @@ body > span {
   position: relative !important;
 }
 
-.dialog-container {
+.kai-dialog{
   position: relative !important;
-  .dialog {
+  &-wrapper {
     position: relative !important;
   }
 }
