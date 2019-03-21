@@ -4,7 +4,7 @@ import './static/common.scss';
 
 import OneLineLi from './template/one-line-li';
 import Header from '../src/header';
-import OptionMenu from '../src/option-menu';
+import Menu from '../src/menu';
 import Dialog from '../src/dialog'
 
 
@@ -16,10 +16,15 @@ class Site extends React.Component {
   }
 
   componentDidMount() {
-    this.menu.show({header: 'fruits', options: [
-      {id: 'apple', label:'apple', callback :() => {}},
-      {id: 'bananer', label:'bananer', callback: () => {}}
-    ]});
+    Menu.open({
+      header: 'fruits',
+      options: [
+        {id: 'apple', label:'apple', onSelect :() => {}},
+        {id: 'bananer', label:'bananer', onSelect: () => {}}
+      ],
+      onOpen: () => {} ,
+      onCancel: () => {}
+    }, document.querySelector('.menuContainer'));
 
     Dialog.alert({
       header: 'Alert Dialog',
@@ -68,11 +73,7 @@ class Site extends React.Component {
       </div>
 
       <span>Option Menu</span>
-      <div className="fake-device-container">
-        <OptionMenu
-          ref={(node) => { this.menu = node; }}
-        >
-        </OptionMenu>
+      <div className="fake-device-container menuContainer">
       </div>
 
       <span>Alert Dialog</span>

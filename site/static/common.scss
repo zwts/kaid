@@ -3,6 +3,10 @@ html, body {
   height: 100%;
   font-size: 10px;
 }
+ul, li {
+  margin: 0;
+  padding: 0;
+}
 
 body > span {
   font-weight: 600;
@@ -21,12 +25,11 @@ body > span {
   color: var(--color-gs00);
 }
 
-.option-menu-container {
+.kai-menu {
   position: relative !important;
-}
-
-.option-menu {
-  position: relative !important;
+  &-wrapper {
+    position: relative !important;
+  }
 }
 
 .kai-dialog{
