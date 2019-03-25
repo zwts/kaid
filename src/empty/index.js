@@ -5,7 +5,7 @@ const prefixCls = 'kai-empty';
 
 const Empty = ({ text }) => (
   <div className={prefixCls}>
-    <p className={`${prefixCls}-text`} data-l10n-id={text} />
+    <p className={`${prefixCls}-text`} data-l10n-id={text}>{text}</p>
   </div>
 );
 
