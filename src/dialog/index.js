@@ -83,7 +83,7 @@ class Dialog extends React.Component {
       default:
         break;
     }
-  };
+  }
 
   focusLast() {
     if (this.lastFocus && this.lastFocus.offsetParent) {
