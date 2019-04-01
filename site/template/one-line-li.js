@@ -7,8 +7,8 @@ export default function OneLineLi() {
   let dataSets = {'data-name': 'orange', 'data-place': 'desktop'};
   return (
     <>
-    <ListItem lines={[lineText1]} focusable='true' outerClass='fake-focus'/>
-    <ListItem lines={[lineText2]} focusable='true' data={dataSets}/>
+    <ListItem primary={lineText1} focusable='true' outerClass='orange'/>
+    <ListItem primary={lineText2} focusable='true' data={dataSets}/>
     </>
   );
 }

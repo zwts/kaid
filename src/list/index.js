@@ -1,16 +1,36 @@
 import React from 'react';
-import BaseComponent from '../base-component';
 import SimpleNavigationHelper from '../simple-navigation-helper';
+import './index.scss';
 
-export default class List extends BaseComponent {
-  constructor(props) {
-    super(props);
+const prefixCls = 'kai-list';
 
-    this.state = {};
-  }
+export const ListItem = ({id, focusable, primary, secondary, icon, outerClass, data}) => {
+  const itemCls = `${prefixCls}-item ${focusable ? 'focusable' : ''} ${outerClass ? outerClass : ''}`;
+  const iconCls = `${prefixCls}-icon ${icon ? '' : 'hidden'}`;
+  const lineCls = `${prefixCls}-line`;
+  const primaryCls = `${prefixCls}-primary`;
+  const secondaryCls = `${prefixCls}-secondary ${secondary ? '' : 'hidden'}`;
 
+  return (
+    <li className={itemCls} tabIndex='-1' id={id} {...data}>
+      <div className={iconCls}>
+        <span data-icon={icon} />
+      </div>
+      <div className={lineCls}>
+        <span className={primaryCls}>{primary}</span>
+        <label className={secondaryCls}>{secondary}</label>
+      </div>
+    </li>
+  );
+};
+
+class List extends React.Component {
   componentDidMount() {
     this.navigator = new SimpleNavigationHelper('.focusable', this.container);
+  }
+
+  componentWillUnmount() {
+    this.navigator.destroy();
   }
 
   render() {
@@ -24,3 +44,5 @@ export default class List extends BaseComponent {
     );
   }
 }
+
+export default List;
