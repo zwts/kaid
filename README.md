@@ -13,6 +13,18 @@ Curren support components:
 - [x] list-item
 - [x] service
 - [x] simple-navigation-helper
+- [ ] search header
+- [ ] tab bar
+- [ ] read more
+- [ ] seperator
+- [ ] progress
+- [ ] slider
+- [ ] button
+- [ ] input
+- [ ] toast
+- [ ] date picker
+- [ ] time picker
+- [ ] loading
 
 ## Site
 use [webpack-dev-server](https://webpack.js.org/configuration/dev-server/) as the quickly develop basic of kaid components.
