@@ -5,16 +5,14 @@ const prefixCls = 'kai-softkey';
 
 const Button = (props) => {  // eslint-disable-line
   const { content } = props;
-  const { icon, text } = content;
 
   const opts = content
     ? {
-      'data-icon': icon,
-      'data-l10n-id': text || content
+      'data-l10n-id': content
     }
     : null;
 
-  return <button className={`${prefixCls}-btn`} {...opts} />;
+  return <button data-position={props.pos} className={`${prefixCls}-btn`} {...opts} />;
 };
 
 const DOMKeyMap = new Map();
@@ -38,6 +36,17 @@ export default class SoftKey extends React.Component {
     UpdateListeners.delete(this.handleUpdate);
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    let buttons = Array.from(this.element.getElementsByTagName('button'));
+    buttons.forEach((button) => {
+      if (!nextState[button.dataset.position]) {
+        // Remove old l10n if the next l10n id is empty.
+        button.textContent = '';
+      }
+    });
+  }
+
+
   handleUpdate = (keys) => {
     this.setState(keys);
   }
@@ -45,7 +54,7 @@ export default class SoftKey extends React.Component {
   render() {
     const { left, center, right } = this.state;
     return (
-      <form className={`${prefixCls} visible`} data-type="action">
+      <form ref={(node) => { this.element = node} } className={`${prefixCls} visible`} data-type="action">
         <Button pos="left" content={left} />
         <Button pos="center" content={center} />
         <Button pos="right" content={right} />
