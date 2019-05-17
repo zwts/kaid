@@ -4,7 +4,7 @@ import './index.scss';
 
 const prefixCls = 'kai-list';
 
-export const ListItem = ({id, focusable, primary, secondary, icon, outerClass, data}) => {
+export const ListItem = ({ id, focusable, primary, secondary, icon, outerClass, data, selector }) => {
   const itemCls = `${prefixCls}-item ${focusable ? 'focusable' : ''} ${outerClass ? outerClass : ''}`;
   const iconCls = `${prefixCls}-icon ${icon ? '' : 'hidden'}`;
   const lineCls = `${prefixCls}-line`;
@@ -13,6 +13,11 @@ export const ListItem = ({id, focusable, primary, secondary, icon, outerClass, d
 
   return (
     <li className={itemCls} tabIndex='-1' id={id} {...data}>
+      {selector ?
+        <div className={iconCls}>
+          <span data-icon={selector}/>
+        </div>
+        : null}
       <div className={iconCls}>
         <span data-icon={icon} />
       </div>
