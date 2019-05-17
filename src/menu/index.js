@@ -59,16 +59,23 @@ class Menu extends React.Component {
   }
 
   render() {
-    const { header, type, options } = this.props;
+    const { header, options, radioOnIndex } = this.props;
     const menu = options.map((option, index) => (
       <li
         key={`option-${option.id}`}
         tabIndex="-1"
         data-index={index}
         className={`${prefixCls}-item p-pri`}
-        data-icon={type ? `${type}-${option.on ? 'on' : 'off'}` : option.submenu ? 'forward' : ''}
-        data-l10n-id={option.id}
-      >{option.id}</li>
+      >
+        <div>
+          <span data-l10n-id={option.id}>{option.id}</span>
+        </div>
+        {option.type === 'radio-item' ?
+          <div>
+            <span className='radio-item'
+                  data-icon={index === radioOnIndex ? 'radio-on' : 'radio-off'}/>
+          </div> : null}
+      </li>
     ));
     return (
       <>
