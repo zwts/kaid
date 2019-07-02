@@ -29,9 +29,16 @@
     background-color: var(--color-gs00);
     text-transform: capitalize;
     outline: none;
+    display: flex;
+    justify-content: space-between;
+
     &:focus {
       color: var(--color-gs00);
       background-color: var(--highlight-color);
     }
+  }
+
+  .radio-item {
+    font-size: 3.2rem;
   }
 }
