@@ -42,8 +42,8 @@ class Dialog extends React.Component {
       case 'prompt':
         SoftKey.register({
           left: 'cancel',
-          center: 'ok',
-          right: ''
+          center: '',
+          right: 'ok'
         }, this.element);
         break;
       default:
@@ -63,16 +63,21 @@ class Dialog extends React.Component {
     const { type, onOK, onCancel } = this.props;
     switch (evt.key) {
       case 'Enter':
-        let res = null;
-        if (type === 'prompt') {
-          res = this.input.value;
+        if (type === 'alert') {
+          this.close();
         }
-        onOK && onOK(res);
-        this.close();
         break;
       case 'SoftLeft':
-        onCancel && onCancel();
-        this.close();
+        if (type === 'progress' || type === 'prompt') {
+          onCancel && onCancel();
+          this.close();
+        }
+        break;
+      case 'SoftRight':
+        if (type === 'prompt') {
+          onOK && onOK(this.input.value);
+          this.close();
+        }
         break;
       case 'Backspace':
       case 'EndCall':
