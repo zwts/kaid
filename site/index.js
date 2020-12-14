@@ -6,8 +6,8 @@ import OneLineLi from './template/one-line-li';
 import TwoLinesLi from './template/two-line-li';
 import Header from '../src/header';
 import Menu from '../src/menu';
-import Dialog from '../src/dialog'
-
+import Dialog from '../src/dialog';
+import BottomTab from './template/bottom-tab'
 
 class Site extends React.Component {
   constructor(props) {
@@ -92,6 +92,11 @@ class Site extends React.Component {
 
       <span>Progress Dialog</span>
       <div className="fake-device-container progressDialogContainer">
+      </div>
+
+      <span>Tab</span>
+      <div className="fake-device-container">
+        <BottomTab></BottomTab>
       </div>
 
       </>

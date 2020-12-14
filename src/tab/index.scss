@@ -1,0 +1,54 @@
+.kai-tab-box {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.kai-tab-header {
+  display: flex;
+  flex-direction: row;
+  height: 10%;
+}
+
+.tab-btn {
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  padding: 0 1rem;
+  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid;
+  width: 33%;
+}
+
+.tab-btn.active {
+  color: var(--highlight-color);
+}
+
+.kai-tab-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  background-color: var(--color-gs10);
+}
+
+.tab-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  opacity: 0;
+}
+.tab-panel.active {
+  z-index: 2;
+  opacity: 1;
+}
+
+
+

@@ -8,8 +8,8 @@
     "start": "webpack-dev-server --open"
   },
   "dependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "16.8.0",
+    "react-dom": "16.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",
