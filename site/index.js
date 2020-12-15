@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './static/common.scss';
 
 import OneLineLi from './template/one-line-li';
+import OneLineLiIcon from './template/one-line-li-icon';
 import TwoLinesLi from './template/two-line-li';
 import Header from '../src/header';
 import Menu from '../src/menu';
@@ -73,6 +74,11 @@ class Site extends React.Component {
         <OneLineLi></OneLineLi>
       </div>
 
+      <span>One Line List with icons</span>
+      <div className="fake-device-container">
+        <OneLineLiIcon></OneLineLiIcon>
+      </div>
+       
       <span>Two Lines List</span>
       <div className="fake-device-container">
         <TwoLinesLi></TwoLinesLi>

@@ -18,9 +18,12 @@ export const ListItem = ({ id, focusable, primary, secondary, icon, outerClass, 
           <span data-icon={selector}/>
         </div>
         : null}
-      <div className={iconCls}>
-        <img src={icon} />
-      </div>
+      { icon ? 
+        <div className={iconCls}>
+          <img src={icon} />
+        </div>
+        : null
+      }
       <div className={lineCls}>
         <span className={primaryCls}>{primary}</span>
         <label className={secondaryCls}>{secondary}</label>
