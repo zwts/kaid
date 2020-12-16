@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import './index.scss';
 
 const Tab = (props) => {
   const keys = props.children.map(item => item.key);
   const [activeTab, changeActive] = useState(keys[0]);
   const boxCls = `kai-tab-box ${props.position || 'top'}`;
+  const contentWrapper = useRef(null);
 
   function findNextKey(active, operator) {
     let curIndex = keys.indexOf(active);
     let nextIndex;
 
-    if (operator) {
+    if (operator > 0) {
       if (curIndex === keys.length - 1){
         nextIndex = 0;
       } else {
@@ -26,6 +27,11 @@ const Tab = (props) => {
 
     return keys[nextIndex];
   }
+
+  useEffect(() => {
+    // `current` points to the mounted element
+    contentWrapper.current.querySelector('.active').firstElementChild.focus();
+  }, [activeTab]);
 
   return (
     <div className={boxCls} onKeyDown={evt => {
@@ -57,7 +63,7 @@ const Tab = (props) => {
           );
         })}
       </div>
-      <div className="kai-tab-content">
+      <div className="kai-tab-content"  ref={contentWrapper}>
         {props.children.map(item => {
           let className = "tab-panel ";
           if (item.key === activeTab) {
