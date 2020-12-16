@@ -4,6 +4,7 @@ import './index.scss';
 const Tab = (props) => {
   const keys = props.children.map(item => item.key);
   const [activeTab, changeActive] = useState(keys[0]);
+  const boxCls = `kai-tab-box ${props.position || 'top'}`;
 
   function findNextKey(active, operator) {
     let curIndex = keys.indexOf(active);
@@ -27,7 +28,7 @@ const Tab = (props) => {
   }
 
   return (
-    <div className='kai-tab-box' onKeyDown={evt => {
+    <div className={boxCls} onKeyDown={evt => {
       switch(evt.key) {
         case 'ArrowLeft':
           changeActive(findNextKey(activeTab, -1));

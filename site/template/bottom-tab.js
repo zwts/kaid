@@ -4,7 +4,7 @@ import { Tab, TabPanel }  from '../../src/index';
 export default function BottomTab() {
   return (
     <>
-    <Tab type="bottom">
+    <Tab position="bottom">
       <TabPanel key="apple" title="header1">
         apple number 1
       </TabPanel>

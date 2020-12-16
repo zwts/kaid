@@ -2,6 +2,13 @@
   height: 100%;
   width: 100%;
   display: flex;
+}
+
+.top {
+  flex-direction: column;
+}
+
+.bottom {
   flex-direction: column-reverse;
 }
 
@@ -13,17 +20,23 @@
 
 .tab-btn {
   background-color: transparent;
-  border: none;
-  height: 100%;
   padding: 0 1rem;
   font-size: 1.6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-top: 2px solid;
   width: 33%;
 }
+
+.top .tab-btn.active {
+  border-bottom: 2px solid;
+}
+
+.bottom .tab-btn.active {
+  border-top: 2px solid;
+}
+
 
 .tab-btn.active {
   color: var(--highlight-color);

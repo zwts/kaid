@@ -8,7 +8,8 @@ import TwoLinesLi from './template/two-line-li';
 import Header from '../src/header';
 import Menu from '../src/menu';
 import Dialog from '../src/dialog';
-import BottomTab from './template/bottom-tab'
+import BottomTab from './template/bottom-tab';
+import { Tab, TabPanel }  from '../src/index';
 
 class Site extends React.Component {
   constructor(props) {
@@ -100,7 +101,22 @@ class Site extends React.Component {
       <div className="fake-device-container progressDialogContainer">
       </div>
 
-      <span>Tab</span>
+      <span>Tab top</span>
+      <div className="fake-device-container">
+        <Tab position="top">
+          <TabPanel key="apple" title="header1">
+            apple number 1
+          </TabPanel>
+          <TabPanel key="orange" title="header3">
+            orange number 2
+          </TabPanel>
+          <TabPanel key="banana" title="header3">
+            banana number 3
+          </TabPanel>
+        </Tab>
+      </div>
+
+      <span>Tab bottom</span>
       <div className="fake-device-container">
         <BottomTab></BottomTab>
       </div>
