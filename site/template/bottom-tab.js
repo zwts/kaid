@@ -6,13 +6,13 @@ export default function BottomTab() {
     <>
     <Tab position="bottom">
       <TabPanel key="apple" title="header1">
-        <div tabIndex="-1">apple number 1</div>
+        apple number 1
       </TabPanel>
       <TabPanel key="orange" title="header3">
-        <div tabIndex="-1">orange number 2</div>
+        orange number 2
       </TabPanel>
       <TabPanel key="banana" title="header3">
-        <div tabIndex="-1">banana number 3</div>
+        banana number 3
       </TabPanel>
     </Tab>
     </>
