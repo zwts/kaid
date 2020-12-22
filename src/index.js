@@ -8,4 +8,5 @@ export { default as SoftKey } from './softkey';
 export { default as List, ListItem } from './list';
 export { default as Menu } from './menu';
 export { default as Dialog } from './dialog';
-export { default as Tab, TabPanel } from './tab'
+export { default as Tab, TabPanel } from './tab';
+export { default as Spin } from './spin';

@@ -10,6 +10,7 @@ import Menu from '../src/menu';
 import Dialog from '../src/dialog';
 import BottomTab from './template/bottom-tab';
 import { Tab, TabPanel }  from '../src/index';
+import Spin from '../src/spin'
 
 class Site extends React.Component {
   constructor(props) {
@@ -121,6 +122,11 @@ class Site extends React.Component {
         <BottomTab></BottomTab>
       </div>
 
+
+      <span>Spin</span>
+      <div className="fake-device-container">
+        <Spin></Spin>
+      </div>
       </>
     );
   }
