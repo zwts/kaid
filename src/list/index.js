@@ -4,9 +4,12 @@ import './index.scss';
 
 const prefixCls = 'kai-list';
 
-export const ListItem = ({ id, focusable, primary, secondary, icon, outerClass, data, selector }) => {
+export const ListItem = ({ id, focusable, primary, secondary, icon, outerClass, data,
+  selector,
+  controller }) => {
   const itemCls = `${prefixCls}-item ${focusable ? 'focusable' : ''} ${outerClass ? outerClass : ''}`;
   const iconCls = `${prefixCls}-icon ${icon ? '' : 'hidden'}`;
+  const controllerCls = `${prefixCls}-controller`;
   const lineCls = `${prefixCls}-line`;
   const primaryCls = `${prefixCls}-primary`;
   const secondaryCls = `${prefixCls}-secondary ${secondary ? '' : 'hidden'}`;
@@ -18,7 +21,7 @@ export const ListItem = ({ id, focusable, primary, secondary, icon, outerClass, 
           <span data-icon={selector}/>
         </div>
         : null}
-      { icon ? 
+      {icon ?
         <div className={iconCls}>
           <img src={icon} />
         </div>
@@ -28,6 +31,12 @@ export const ListItem = ({ id, focusable, primary, secondary, icon, outerClass, 
         <span className={primaryCls}>{primary}</span>
         <label className={secondaryCls}>{secondary}</label>
       </div>
+      {controller ?
+        <div className={controllerCls}>
+          <span data-icon={controller}/>
+        </div>
+        : null
+      }
     </li>
   );
 };
