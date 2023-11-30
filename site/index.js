@@ -122,9 +122,8 @@ class Site extends React.Component {
         <BottomTab></BottomTab>
       </div>
 
-
       <span>Spin</span>
-      <div className="fake-device-container">
+      <div className="fake-device-container center">
         <Spin></Spin>
       </div>
       </>

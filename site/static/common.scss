@@ -24,6 +24,13 @@ body > span {
   margin: 0 5rem 5rem;
 }
 
+.fake-device-container.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .fake-focus {
   background-color: var(--highlight-color);
   color: var(--color-gs00);

@@ -1,14 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import './index.scss';
 
-const prefixCls = 'kai-spin';
-
-const Spin = (props) => {
-  return(
-    <div className={`${prefixCls}`}>
-      <div className={`${prefixCls}-indicator spin`}></div>
-    </div>
-  );
+export default () => {
+  return <div className="spin"></div>;
 };
-
-export default Spin;
