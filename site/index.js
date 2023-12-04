@@ -9,7 +9,7 @@ import Header from '../src/header';
 import Menu from '../src/menu';
 import Dialog from '../src/dialog';
 import BottomTab from './template/bottom-tab';
-import { Tab, TabPanel }  from '../src/index';
+import { Marquee, Tab, TabPanel }  from '../src/index';
 import Spin from '../src/spin'
 
 class Site extends React.Component {
@@ -124,7 +124,11 @@ class Site extends React.Component {
 
       <span>Spin</span>
       <div className="fake-device-container center">
-        <Spin></Spin>
+        <Spin/>
+      </div>
+      <span>Marquee</span>
+      <div className="fake-device-container center">
+        <Marquee text="display the content as a marquee"></Marquee>
       </div>
       </>
     );
