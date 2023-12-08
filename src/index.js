@@ -11,3 +11,4 @@ export { default as Dialog } from './dialog';
 export { default as Tab, TabPanel } from './tab';
 export { default as Spin } from './spin';
 export { default as Marquee } from './marquee';
+export { default as PinCode } from './pin-code';

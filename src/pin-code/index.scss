@@ -1,0 +1,34 @@
+.pin-code {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  outline: none;
+
+  > .digital {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 3.3rem;
+    border: solid 2px var(--color-gs70);
+    border-radius: 2px;
+    width: 3rem;
+    height: 3.6rem;
+    box-sizing: border-box;
+    text-align: center;
+
+    &.highlight {
+      border: solid 3px var(--highlight-color);
+    }
+
+    &:first-child {
+      margin-left: 0.5rem;
+    }
+
+    &:last-child {
+      margin-right: 0.5rem;
+    }
+  }
+}
